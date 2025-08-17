@@ -1,1 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVerse - Advanced Cybersecurity Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L30 8V16C30 23 23 30 16 30C9 30 2 23 2 16V8L16 2Z" fill="url(#logoGradient)"/>
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00d9ff"/>
+                            <stop offset="100%" stop-color="#00ff88"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>SecureVerse</span>
+            </div>
+            
+            <nav class="nav">
+                <a href="#dashboard" class="nav-link active" data-page="dashboard">Dashboard</a>
+                <a href="#security" class="nav-link" data-page="security">Security Monitor</a>
+                <a href="#marketplace" class="nav-link" data-page="marketplace">Data Marketplace</a>
+                <a href="#guardian" class="nav-link" data-page="guardian">Guardian Program</a>
+                <a href="#custom-os" class="nav-link" data-page="custom-os">Custom OS</a>
+                <a href="#settings" class="nav-link" data-page="settings">Settings</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="btn-emergency" id="emergencyLockdown">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M5.5 5.5A2.5 2.5 0 018 3a2.5 2.5 0 012.5 2.5v1.5h.5a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V8a1 1 0 011-1h.5V5.5z"/>
+                    </svg>
+                    Emergency Lockdown
+                </button>
+                <button class="btn-scan" id="scanNow">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 12a4 4 0 100-8 4 4 0 000 8zM8 0a8 8 0 110 16A8 8 0 018 0z"/>
+                    </svg>
+                    Scan Now
+                </button>
+                <div class="notifications" id="notifications">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+                    </svg>
+                    <span class="notification-badge" id="notificationBadge">3</span>
+                </div>
+                <div class="user-profile" id="userProfile">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%2300d9ff'/%3E%3Ctext x='16' y='20' text-anchor='middle' fill='%23fff' font-family='Arial' font-size='14' font-weight='bold'%3EAS%3C/text%3E%3C/svg%3E" alt="Profile" class="profile-avatar">
+                    <span>Arjun Sharma</span>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                        <path d="M6 8l-3-3h6l-3 3z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
 
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page active">
+            <div class="page-header">
+                <h1>Security Dashboard</h1>
+                <p>Welcome back, Arjun. Your digital security is strong today.</p>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Digital Health Score</h3>
+                        <span class="metric-trend positive">+2</span>
+                    </div>
+                    <div class="metric-value">
+                        <div class="circular-progress" data-value="94">
+                            <svg width="80" height="80">
+                                <circle cx="40" cy="40" r="35" stroke="#1e293b" stroke-width="4" fill="none"/>
+                                <circle cx="40" cy="40" r="35" stroke="url(#healthGradient)" stroke-width="4" fill="none" stroke-linecap="round" class="progress-circle"/>
+                                <defs>
+                                    <linearGradient id="healthGradient">
+                                        <stop offset="0%" stop-color="#00ff88"/>
+                                        <stop offset="100%" stop-color="#00d9ff"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span class="progress-text">94</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Threats Blocked Today</h3>
+                        <span class="metric-trend positive">+5</span>
+                    </div>
+                    <div class="metric-value">
+                        <span class="metric-number">23</span>
+                        <div class="mini-chart" id="threatsChart" style="position: relative; height: 60px;">
+                            <canvas></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Data Earnings</h3>
+                        <span class="metric-period">This Month</span>
+                    </div>
+                    <div class="metric-value">
+                        <span class="metric-number">₹1,247</span>
+                        <span class="metric-subtitle">+₹230 pending</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Learning Progress</h3>
+                        <span class="metric-period">Advanced Security</span>
+                    </div>
+                    <div class="metric-value">
+                        <span class="metric-number">78%</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 78%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Guardian Network</h3>
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <div class="metric-value">
+                        <div class="guardian-info">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%2300ff88'/%3E%3Ctext x='20' y='24' text-anchor='middle' fill='%23000' font-family='Arial' font-size='16' font-weight='bold'%3ERK%3C/text%3E%3C/svg%3E" alt="Guardian">
+                            <div>
+                                <div class="guardian-name">Rajesh Kumar</div>
+                                <div class="guardian-status">Available • &lt;2 min response</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>System Status</h3>
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <div class="metric-value">
+                        <div class="system-indicators">
+                            <div class="indicator">
+                                <span class="indicator-dot success"></span>
+                                <span>Firewall Active</span>
+                            </div>
+                            <div class="indicator">
+                                <span class="indicator-dot success"></span>
+                                <span>OS Isolated</span>
+                            </div>
+                            <div class="indicator">
+                                <span class="indicator-dot success"></span>
+                                <span>Data Encrypted</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="activity-section">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-feed" id="activityFeed">
+                        <!-- Activity items will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="action-grid">
+                        <button class="action-btn" id="fullScan">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            Full System Scan
+                        </button>
+                        <button class="action-btn" id="updateFirewall">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z"/>
+                            </svg>
+                            Update Firewall
+                        </button>
+                        <button class="action-btn" id="backupData">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                            Backup Data
+                        </button>
+                        <button class="action-btn" id="checkUpdates">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M21,10.12H14.22L16.96,7.3C14.23,4.6 9.81,4.5 7.08,7.2C4.35,9.91 4.35,14.28 7.08,17C9.81,19.7 14.23,19.7 16.96,17C18.32,15.65 19,14.08 19,12.1H21C21,14.08 20.12,16.65 18.36,18.39C14.85,21.87 9.15,21.87 5.64,18.39C2.14,14.92 2.11,9.28 5.64,5.81C9.15,2.29 14.85,2.29 18.36,5.81L21,3V10.12M12.5,8V12.25L16,14.33L15.28,15.54L11,13V8H12.5Z"/>
+                            </svg>
+                            Check Updates
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Monitor Page -->
+        <div id="security" class="page">
+            <div class="page-header">
+                <h1>Security Monitor</h1>
+                <p>Real-time threat detection and network analysis</p>
+            </div>
+            
+            <div class="security-grid">
+                <div class="security-card network-visualization">
+                    <h3>Network Data Flow</h3>
+                    <div class="network-graph" id="networkGraph">
+                        <div class="network-node central">Device</div>
+                        <div class="network-node app1">App 1</div>
+                        <div class="network-node app2">App 2</div>
+                        <div class="network-node app3">App 3</div>
+                        <div class="network-connection" data-flow="safe"></div>
+                        <div class="network-connection" data-flow="blocked"></div>
+                        <div class="network-connection" data-flow="safe"></div>
+                    </div>
+                </div>
+                
+                <div class="security-card threat-feed">
+                    <h3>Live Threat Detection</h3>
+                    <div class="threat-list" id="threatList">
+                        <!-- Threat items populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="security-card app-permissions">
+                    <h3>App Permissions</h3>
+                    <div class="permission-list">
+                        <div class="permission-item">
+                            <span class="app-name">WhatsApp</span>
+                            <div class="permissions">
+                                <span class="permission-tag camera">Camera</span>
+                                <span class="permission-tag microphone">Microphone</span>
+                                <span class="permission-tag contacts">Contacts</span>
+                            </div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="app-name">Chrome</span>
+                            <div class="permissions">
+                                <span class="permission-tag location">Location</span>
+                                <span class="permission-tag storage">Storage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="security-card traffic-analyzer">
+                    <h3>Network Traffic</h3>
+                    <div class="traffic-chart" id="trafficChart" style="position: relative; height: 200px;">
+                        <canvas></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Marketplace Page -->
+        <div id="marketplace" class="page">
+            <div class="page-header">
+                <h1>Data Marketplace</h1>
+                <p>Control your data sharing and earn from your digital footprint</p>
+            </div>
+            
+            <div class="marketplace-grid">
+                <div class="marketplace-card earnings-overview">
+                    <h3>Earnings Overview</h3>
+                    <div class="earnings-summary">
+                        <div class="earnings-item">
+                            <span class="earnings-label">This Month</span>
+                            <span class="earnings-value">₹1,247</span>
+                        </div>
+                        <div class="earnings-item">
+                            <span class="earnings-label">Pending</span>
+                            <span class="earnings-value">₹230</span>
+                        </div>
+                        <div class="earnings-item">
+                            <span class="earnings-label">Total Earned</span>
+                            <span class="earnings-value">₹8,956</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="marketplace-card data-categories">
+                    <h3>Data Categories</h3>
+                    <div class="category-list" id="categoryList">
+                        <!-- Categories populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="marketplace-card data-buyers">
+                    <h3>Current Buyers</h3>
+                    <div class="buyer-list">
+                        <div class="buyer-item">
+                            <span class="buyer-name">TechCorp Analytics</span>
+                            <span class="buyer-rate">₹80/month</span>
+                            <span class="buyer-category">Browsing Data</span>
+                        </div>
+                        <div class="buyer-item">
+                            <span class="buyer-name">HealthTrack Solutions</span>
+                            <span class="buyer-rate">₹90/month</span>
+                            <span class="buyer-category">Fitness Data</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="marketplace-card revenue-chart">
+                    <h3>Revenue Analytics</h3>
+                    <div class="chart-container" id="revenueChart" style="position: relative; height: 200px;">
+                        <canvas></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guardian Program Page -->
+        <div id="guardian" class="page">
+            <div class="page-header">
+                <h1>Guardian Program</h1>
+                <p>Learn cybersecurity and help protect others while earning</p>
+            </div>
+            
+            <div class="guardian-grid">
+                <div class="guardian-card progress-pathway">
+                    <h3>Learning Pathway</h3>
+                    <div class="pathway-stages" id="pathwayStages">
+                        <!-- Stages populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="guardian-card current-guardian">
+                    <h3>Your Guardian</h3>
+                    <div class="guardian-profile">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ccircle cx='30' cy='30' r='30' fill='%2300ff88'/%3E%3Ctext x='30' y='36' text-anchor='middle' fill='%23000' font-family='Arial' font-size='20' font-weight='bold'%3ERK%3C/text%3E%3C/svg%3E" alt="Guardian">
+                        <div class="guardian-details">
+                            <h4>Rajesh Kumar</h4>
+                            <p>Senior Guardian • 4.9★ Rating</p>
+                            <p>Available • Response time: &lt;2 minutes</p>
+                            <button class="btn btn--primary">Message Guardian</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guardian-card leaderboard">
+                    <h3>Top Learners</h3>
+                    <div class="leaderboard-list">
+                        <div class="leaderboard-item">
+                            <span class="rank">1</span>
+                            <span class="name">Priya Patel</span>
+                            <span class="score">2,847 pts</span>
+                        </div>
+                        <div class="leaderboard-item current">
+                            <span class="rank">12</span>
+                            <span class="name">Arjun Sharma (You)</span>
+                            <span class="score">1,923 pts</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">13</span>
+                            <span class="name">Vikram Singh</span>
+                            <span class="score">1,856 pts</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guardian-card job-opportunities">
+                    <h3>Guardian Opportunities</h3>
+                    <div class="job-list">
+                        <div class="job-item">
+                            <h4>Junior Guardian</h4>
+                            <p>₹25,000 - ₹35,000/month</p>
+                            <span class="job-requirement">Complete Stage 3</span>
+                        </div>
+                        <div class="job-item">
+                            <h4>Security Mentor</h4>
+                            <p>₹40,000 - ₹60,000/month</p>
+                            <span class="job-requirement">Complete All Stages</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom OS Page -->
+        <div id="custom-os" class="page">
+            <div class="page-header">
+                <h1>SecureVerse OS</h1>
+                <p>Your isolated, secure operating environment</p>
+            </div>
+            
+            <div class="os-grid">
+                <div class="os-card system-health">
+                    <h3>System Health</h3>
+                    <div class="health-metrics">
+                        <div class="health-item">
+                            <span class="health-label">Overall Health</span>
+                            <span class="health-value">98%</span>
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 98%"></div>
+                            </div>
+                        </div>
+                        <div class="health-item">
+                            <span class="health-label">CPU Usage</span>
+                            <span class="health-value">23%</span>
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 23%"></div>
+                            </div>
+                        </div>
+                        <div class="health-item">
+                            <span class="health-label">Memory</span>
+                            <span class="health-value">67%</span>
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 67%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="os-card device-fingerprint">
+                    <h3>Device Fingerprint</h3>
+                    <div class="fingerprint-info">
+                        <div class="fingerprint-item">
+                            <span class="label">OS Version</span>
+                            <span class="value">SecureVerse-1.2.1</span>
+                        </div>
+                        <div class="fingerprint-item">
+                            <span class="label">Fingerprint ID</span>
+                            <span class="value">SV-AB12-C3F4-56DE</span>
+                        </div>
+                        <div class="fingerprint-item">
+                            <span class="label">Isolation Status</span>
+                            <span class="value status-success">Active</span>
+                        </div>
+                        <div class="fingerprint-item">
+                            <span class="label">Uptime</span>
+                            <span class="value">15 days, 6 hours</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="os-card malware-scan">
+                    <h3>Malware Scan Results</h3>
+                    <div class="scan-results">
+                        <div class="scan-header">
+                            <span class="scan-status success">✓ System Clean</span>
+                            <span class="scan-time">Last scan: Today 2:30 PM</span>
+                        </div>
+                        <div class="scan-stats">
+                            <div class="scan-stat">
+                                <span class="stat-number">0</span>
+                                <span class="stat-label">Threats Found</span>
+                            </div>
+                            <div class="scan-stat">
+                                <span class="stat-number">1,247,890</span>
+                                <span class="stat-label">Files Scanned</span>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary">Run Full Scan</button>
+                    </div>
+                </div>
+                
+                <div class="os-card peripheral-log">
+                    <h3>Peripheral Security</h3>
+                    <div class="peripheral-list">
+                        <div class="peripheral-item safe">
+                            <span class="peripheral-icon">🔌</span>
+                            <div class="peripheral-info">
+                                <span class="peripheral-name">USB Drive (SanDisk)</span>
+                                <span class="peripheral-status">Healed & Safe</span>
+                            </div>
+                            <span class="peripheral-time">2:15 PM</span>
+                        </div>
+                        <div class="peripheral-item safe">
+                            <span class="peripheral-icon">⌨️</span>
+                            <div class="peripheral-info">
+                                <span class="peripheral-name">Bluetooth Keyboard</span>
+                                <span class="peripheral-status">Secure Connection</span>
+                            </div>
+                            <span class="peripheral-time">1:45 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div id="settings" class="page">
+            <div class="page-header">
+                <h1>Settings</h1>
+                <p>Customize your SecureVerse experience</p>
+            </div>
+            
+            <div class="settings-grid">
+                <div class="settings-card security-settings">
+                    <h3>Security Settings</h3>
+                    <div class="setting-item">
+                        <span class="setting-label">Auto-scan intervals</span>
+                        <select class="form-control">
+                            <option>Every 4 hours</option>
+                            <option>Every 8 hours</option>
+                            <option>Daily</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Threat notification level</span>
+                        <select class="form-control">
+                            <option>All threats</option>
+                            <option>High priority only</option>
+                            <option>Critical only</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-card privacy-settings">
+                    <h3>Privacy Settings</h3>
+                    <div class="setting-item">
+                        <span class="setting-label">Data collection analytics</span>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Anonymous usage statistics</span>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Mentor Chat -->
+    <div class="ai-chat" id="aiChat">
+        <div class="chat-header">
+            <h3>AI Security Mentor</h3>
+            <button class="chat-close" id="closeChatBtn">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message ai">
+                <div class="message-content">
+                    Hello Arjun! I'm your AI Security Mentor. How can I help you stay secure today?
+                </div>
+                <div class="message-time">Now</div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Ask me about cybersecurity..." id="chatInput">
+            <button id="sendChatBtn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Chat Toggle Button -->
+    <button class="chat-toggle" id="chatToggleBtn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4a2 2 0 00-2 2v12a2 2 0 002 2h4l4 4 4-4h4a2 2 0 002-2V4a2 2 0 00-2-2z"/>
+        </svg>
+    </button>
+
+    <!-- Notification Panel -->
+    <div class="notification-panel hidden" id="notificationPanel">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="close-notifications" id="closeNotifications">×</button>
+        </div>
+        <div class="notification-list" id="notificationList">
+            <!-- Notifications populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal hidden" id="emergencyModal">
+        <div class="modal-content">
+            <h2>Emergency Lockdown</h2>
+            <p>This will immediately secure all connections and lock your device. Are you sure?</p>
+            <div class="modal-actions">
+                <button class="btn btn--secondary" id="cancelLockdown">Cancel</button>
+                <button class="btn btn--primary" id="confirmLockdown">Activate Lockdown</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
