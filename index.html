@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVerse - Your Personal Digital Mentor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .cta-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s 0.2s both;
+        }
+
+        .tagline {
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s 0.4s both;
+        }
+
+        .hero-video {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            margin: 2rem auto;
+        }
+
+        /* Dashboard Section */
+        .dashboard-section {
+            background: white;
+            padding: 4rem 0;
+            margin: 2rem 0;
+            border-radius: 30px;
+        }
+
+        .dashboard-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dashboard-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-safe { background: #00ff00; }
+        .status-warning { background: #ffaa00; }
+        .status-secure { background: #00aaff; }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            border-radius: 30px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-video {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            margin: 1rem 0;
+        }
+
+        /* Guardian Section */
+        .guardian-section {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin: 2rem 0;
+            border-radius: 30px;
+        }
+
+        .guardian-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        /* Mentor Chat */
+        .mentor-chat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+        }
+
+        .mentor-chat.active {
+            display: flex;
+        }
+
+        .chat-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+
+        .message.mentor {
+            background: #f0f0f0;
+            margin-right: auto;
+        }
+
+        .message.user {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+        }
+
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .mentor-chat {
+                width: 300px;
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">SecureVerse</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#guardian">Guardian Program</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+            </ul>
+            <button class="cta-btn">Join SecureVerse</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>SecureVerse</h1>
+            <p class="tagline">No One Left Behind</p>
+            <p>Your Personal Digital Mentor - Where Users Become Guardians</p>
+            
+            <iframe class="hero-video" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="SecureVerse Introduction" 
+                    frameborder="0" 
+                    allowfullscreen>
+            </iframe>
+            
+            <p>🔒 Complete Data Protection | 🤖 AI Personal Mentor | 💰 Earn From Your Data</p>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section" id="dashboard">
+        <div class="container">
+            <h2 class="dashboard-title">Your Security Dashboard</h2>
+            
+            <div class="dashboard">
+                <div class="dashboard-card">
+                    <h3><span class="status-indicator status-safe"></span>Digital Health Score</h3>
+                    <div class="metric-value">94/100</div>
+                    <p>Excellent security posture</p>
+                    <p>Last scan: 2 minutes ago</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="status-indicator status-warning"></span>Data Flow Monitor</h3>
+                    <div class="metric-value">12</div>
+                    <p>Apps blocked today</p>
+                    <p>₹247 earned from data sharing</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="status-indicator status-secure"></span>Learning Progress</h3>
+                    <div class="metric-value">78%</div>
+                    <p>Guardian Pathway Complete</p>
+                    <p>Next milestone: Advanced Security</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="status-indicator status-safe"></span>Threats Blocked</h3>
+                    <div class="metric-value">1,247</div>
+                    <p>This month</p>
+                    <p>Community contribution: Top 5%</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="status-indicator status-secure"></span>Custom OS Status</h3>
+                    <div class="metric-value">Active</div>
+                    <p>Zero vulnerabilities detected</p>
+                    <p>Last update: Today 09:30 AM</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="status-indicator status-safe"></span>Guardian Network</h3>
+                    <div class="metric-value">Rajesh K.</div>
+                    <p>Your assigned Cyber Guardian</p>
+                    <p>Response time: <2 minutes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="dashboard-title" style="color: white;">Revolutionary Features</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card pulse">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Digital Security Guard</h3>
+                    <iframe class="feature-video" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            frameborder="0" allowfullscreen>
+                    </iframe>
+                    <p>Audits every data packet in <1ms. Complete transparency of where your data goes.</p>
+                </div>
+
+                <div class="feature-card pulse">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Personal Mentor</h3>
+                    <iframe class="feature-video" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            frameborder="0" allowfullscreen>
+                    </iframe>
+                    <p>24/7 digital guidance in 12+ languages. Grows with you and your needs.</p>
+                </div>
+
+                <div class="feature-card pulse">
+                    <div class="feature-icon">💰</div>
+                    <h3>Data Marketplace</h3>
+                    <iframe class="feature-video" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            frameborder="0" allowfullscreen>
+                    </iframe>
+                    <p>Share data on YOUR terms. AI negotiates best prices. 60% revenue share to you.</p>
+                </div>
+
+                <div class="feature-card pulse">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>Custom Secure OS</h3>
+                    <iframe class="feature-video" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            frameborder="0" allowfullscreen>
+                    </iframe>
+                    <p>Unique OS for each user. 30-second malware cure. Complete isolation.</p>
+                </div>
+
+                <div class="feature-card pulse">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Zero-Knowledge Privacy</h3>
+                    <iframe class="feature-video" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            frameborder="0" allowfullscreen>
+                    </iframe>
+                    <p>Even SecureVerse can't see your data. Complete offline operation.</p>
+                </div>
+
+                <div class="feature-card pulse">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Response</h3>
+                    <iframe class="feature-video" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            frameborder="0" allowfullscreen>
+                    </iframe>
+                    <p>Sub-millisecond threat detection. Real-time protection that doesn't slow you down.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guardian Program Section -->
+    <section class="guardian-section" id="guardian">
+        <div class="container">
+            <h2>Cyber Guardian Program</h2>
+            <p style="font-size: 1.5rem; margin-bottom: 2rem;">From Protected User to Cyber Guardian</p>
+            
+            <div class="guardian-stats">
+                <div class="stat-card">
+                    <div class="stat-number">50,000</div>
+                    <p>Active Guardians</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1:1000</div>
+                    <p>Guardian to User Ratio</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">₹6-15L</div>
+                    <p>Annual Guardian Salary</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">92%</div>
+                    <p>Guardian Job Satisfaction</p>
+                </div>
+            </div>
+
+            <iframe style="width: 100%; max-width: 800px; height: 450px; border-radius: 20px; margin: 2rem auto; display: block;" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="Guardian Program Overview" 
+                    frameborder="0" 
+                    allowfullscreen>
+            </iframe>
+
+            <button class="cta-btn" style="font-size: 1.2rem; padding: 1rem 3rem; margin-top: 2rem;">
+                Start Your Guardian Journey
+            </button>
+        </div>
+    </section>
+
+    <!-- Digital Mentor Chat -->
+    <div class="mentor-chat" id="mentorChat">
+        <div class="chat-header">
+            <h3>🤖 Your Digital Mentor</h3>
+            <p>Online • Response time: <1s</p>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message mentor">
+                <strong>SecureVerse Mentor:</strong><br>
+                Hi! I'm your personal digital mentor. I noticed you've been browsing banking apps. Would you like me to check their security certificates?
+            </div>
+            <div class="message user">
+                <strong>You:</strong><br>
+                Yes, please check if they're safe to use.
+            </div>
+            <div class="message mentor">
+                <strong>SecureVerse Mentor:</strong><br>
+                I've analyzed 3 banking apps. 2 are secure ✅, but one has suspicious permissions ⚠️. I've blocked it and found a safer alternative. Would you like me to show you?
+            </div>
+            <div class="message mentor">
+                <strong>SecureVerse Mentor:</strong><br>
+                Also, I see you're 78% complete on your Guardian pathway! 🎉 You're doing amazing. Next lesson: "Advanced Threat Detection" is ready when you are.
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Ask your mentor anything..." id="chatInput">
+            <button class="cta-btn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- Chat Toggle Button -->
+    <button class="chat-toggle" onclick="toggleChat()">💬</button>
+
+    <script>
+        // Chat functionality
+        function toggleChat() {
+            const chat = document.getElementById('mentorChat');
+            chat.classList.toggle('active');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            
+            if (input.value.trim()) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.innerHTML = `<strong>You:</strong><br>${input.value}`;
+                messages.appendChild(userMessage);
+                
+                // Simulate mentor response
+                setTimeout(() => {
+                    const mentorMessage = document.createElement('div');
+                    mentorMessage.className = 'message mentor';
+                    mentorMessage.innerHTML = `<strong>SecureVerse Mentor:</strong><br>I understand your concern. Let me analyze this for you... 🔍 Based on my assessment, I recommend enabling two-factor authentication and checking your app permissions. Would you like me to guide you through this?`;
+                    messages.appendChild(mentorMessage);
+                    messages.scrollTop = messages.scrollHeight;
+                }, 1000);
+                
+                input.value = '';
+                messages.scrollTop = messages.scrollHeight;
+            }
+        }
+
+        // Enable Enter key for chat
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Dashboard real-time updates simulation
+        function updateDashboard() {
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                if (metric.textContent.includes('/100')) {
+                    const current = parseInt(metric.textContent);
+                    if (Math.random() > 0.7) {
+                        metric.textContent = Math.min(100, current + Math.floor(Math.random() * 3)) + '/100';
+                    }
+                }
+            });
+        }
+
+        // Update dashboard every 10 seconds
+        setInterval(updateDashboard, 10000);
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.dashboard-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Simulate real-time threat blocking
+        let blockedCount = 1247;
+        setInterval(() => {
+            if (Math.random() > 0.8) {
+                blockedCount++;
+                const threatCounter = document.querySelector('.dashboard-card:nth-child(4) .metric-value');
+                if (threatCounter) {
+                    threatCounter.textContent = blockedCount.toLocaleString();
+                    // Flash effect
+                    threatCounter.style.color = '#ff6b6b';
+                    setTimeout(() => {
+                        threatCounter.style.color = '#ffd700';
+                    }, 300);
+                }
+            }
+        }, 5000);
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
