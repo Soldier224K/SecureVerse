@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureVerse Prototype – Tabbed Demo</title>
+  <style>
+    :root {
+      --grad: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      --grad-alt: linear-gradient(45deg,#ff6b6b,#4ecdc4);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif}
+    body{background:var(--grad);color:#333;min-height:100vh;overflow:hidden}
+    header{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:#fff;position:fixed;width:100%;z-index:999;box-shadow:0 2px 15px rgba(0,0,0,.1)}
+    .logo{font-size:1.8rem;font-weight:700;background:var(--grad-alt);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    nav a{margin:0 1rem;text-decoration:none;color:#333;font-weight:500}
+    nav a.active{color:#667eea;border-bottom:2px solid #667eea}
+    .cta{background:var(--grad-alt);color:#fff;padding:.6rem 1.5rem;border:none;border-radius:30px;font-weight:600;cursor:pointer}
+    main{display:flex;padding-top:80px;height:calc(100vh - 80px)}
+    /* sidebar */
+    .tabs{width:220px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);display:flex;flex-direction:column;padding:1rem 0;overflow-y:auto}
+    .tab{padding:1rem 1.5rem;cursor:pointer;display:flex;align-items:center;gap:.8rem;color:#333;transition:.3s}
+    .tab:hover{background:rgba(102,126,234,.2)}
+    .tab.active{background:var(--grad-alt);color:#fff;font-weight:600}
+    .tab i{font-style:normal;font-size:1.3rem}
+    /* content */
+    .content-wrapper{flex:1;background:#fdfdfd;border-radius:20px 0 0 20px;padding:2rem;overflow-y:auto}
+    section.tab-pane{display:none;animation:fade .3s ease}
+    section.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    /* dashboard sample */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:1rem}
+    .card{background:var(--grad);color:#fff;border-radius:15px;padding:1.5rem;box-shadow:0 10px 25px rgba(0,0,0,.15)}
+    .card h3{font-size:1.1rem;margin-bottom:.5rem}
+    .value{font-size:2rem;font-weight:700;color:#ffd700;margin-bottom:.5rem}
+    /* mentor */
+    .mentor-chat{background:#fff;border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,.1);height:400px;display:flex;flex-direction:column}
+    .mentor-msgs{flex:1;padding:1rem;overflow-y:auto}
+    .msg{margin-bottom:1rem;padding:.7rem;border-radius:12px;font-size:.9rem}
+    .ment{background:#f0f0f0;margin-right:auto}
+    .usr{background:#667eea;margin-left:auto;color:#fff}
+    .mentor-input{display:flex;border-top:1px solid #eee}
+    .mentor-input input{flex:1;border:none;padding:.8rem}
+    .mentor-input button{background:var(--grad-alt);border:none;color:#fff;padding:0 1.3rem;cursor:pointer}
+    /* responsive */
+    @media(max-width:768px){main{flex-direction:column}.tabs{flex-direction:row;width:100%;overflow-x:auto;height:60px}.tab{flex:1;justify-content:center;padding:.8rem}.content-wrapper{border-radius:0;height:calc(100vh - 140px)}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">SecureVerse</div>
+    <nav>
+      <a href="#" class="topNav active">Prototype</a>
+      <a href="#" class="topNav">Docs</a>
+      <button class="cta">Join Beta</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Side Tabs -->
+    <aside class="tabs" id="sideTabs">
+      <div class="tab active" data-tab="dash"><i>📊</i>Dashboard</div>
+      <div class="tab" data-tab="mentor"><i>🤖</i>Mentor</div>
+      <div class="tab" data-tab="market"><i>💰</i>Marketplace</div>
+      <div class="tab" data-tab="guardian"><i>🛡️</i>Guardian</div>
+      <div class="tab" data-tab="os"><i>🖥️</i>Custom&nbsp;OS</div>
+    </aside>
+
+    <!-- Content -->
+    <div class="content-wrapper">
+      <!-- DASHBOARD -->
+      <section id="dash" class="tab-pane active">
+        <h2>Security Dashboard</h2>
+        <div class="cards">
+          <div class="card"><h3>Digital Health Score</h3><div class="value" id="score">94</div><p>Excellent</p></div>
+          <div class="card"><h3>Threats Blocked</h3><div class="value" id="threats">1,250</div><p>This month</p></div>
+          <div class="card"><h3>Data Earned</h3><div class="value" id="earn">₹247</div><p>Today</p></div>
+          <div class="card"><h3>Learning Progress</h3><div class="value" id="learn">78%</div><p>Guardian Path</p></div>
+        </div>
+      </section>
+
+      <!-- MENTOR -->
+      <section id="mentor" class="tab-pane">
+        <h2>Your Digital Mentor</h2>
+        <div class="mentor-chat">
+          <div class="mentor-msgs" id="msgs">
+            <div class="msg ment">Hi! I’m your SecureVerse mentor. Need help securing that new app?</div>
+          </div>
+          <div class="mentor-input">
+            <input type="text" id="ask" placeholder="Ask me anything...">
+            <button onclick="sendMsg()">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MARKETPLACE -->
+      <section id="market" class="tab-pane">
+        <h2>Data Marketplace</h2>
+        <p>Choose what to share and earn instantly.</p>
+        <table style="width:100%;border-collapse:collapse;margin-top:1rem">
+          <thead><tr style="background:#eee"><th>Data Type</th><th>Status</th><th>Rate (₹/month)</th><th>Toggle</th></tr></thead>
+          <tbody>
+            <tr><td>Fitness Metrics</td><td style="color:green">Shared</td><td>50</td><td><button>Disable</button></td></tr>
+            <tr><td>Anonymous Location</td><td style="color:red">Blocked</td><td>120</td><td><button>Enable</button></td></tr>
+            <tr><td>App Usage Trends</td><td style="color:green">Shared</td><td>80</td><td><button>Disable</button></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- GUARDIAN -->
+      <section id="guardian" class="tab-pane">
+        <h2>Guardian Progress</h2>
+        <ol style="margin-top:1rem;font-size:1.1rem">
+          <li>Digital Awareness Basics – ✅</li>
+          <li>Intermediate Protection – ✅</li>
+          <li>Advanced Security Mastery – 60%</li>
+          <li>Guardian Leadership – 0%</li>
+        </ol>
+        <p style="margin-top:1.5rem">Complete your curriculum to receive a job interview call letter from SecureVerse!</p>
+      </section>
+
+      <!-- CUSTOM OS -->
+      <section id="os" class="tab-pane">
+        <h2>Custom Secure OS</h2>
+        <p>Your unique OS is running flawlessly. Last malware scan completed <strong>5 minutes ago</strong> (0 threats found).</p>
+        <ul style="margin-top:1rem;list-style:disc inside">
+          <li>Kernel Version: SV-1.0.5-LTS</li>
+          <li>Device Fingerprint: <code>AB12-C3F4-56DE</code></li>
+          <li>Isolation Mode: <span style="color:green">Active</span></li>
+          <li>Peripheral Healing: Ready (30-second revert)</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Tab switching
+    const tabs=document.querySelectorAll('.tab');
+    const panes=document.querySelectorAll('.tab-pane');
+    tabs.forEach(t=>t.addEventListener('click',()=>{
+      tabs.forEach(el=>el.classList.remove('active'));
+      panes.forEach(p=>p.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(t.dataset.tab).classList.add('active');
+    }));
+
+    // Mentor chat demo
+    function sendMsg(){const inp=document.getElementById('ask');if(!inp.value.trim())return;const msgs=document.getElementById('msgs');msgs.innerHTML+=`<div class="msg usr">${inp.value}</div>`;setTimeout(()=>{msgs.innerHTML+=`<div class="msg ment">Great question! I've secured that request and updated your privacy settings.</div>`;msgs.scrollTop=msgs.scrollHeight;},900);msgs.scrollTop=msgs.scrollHeight;inp.value='';}
+
+    // Simple metric updates
+    setInterval(()=>{
+      document.getElementById('score').textContent=Math.min(100,parseInt(document.getElementById('score').textContent)+1);
+      const t=document.getElementById('threats');t.textContent=parseInt(t.textContent.replace(/,/g,''))+Math.floor(Math.random()*3);
+    },8000);
+  </script>
+</body>
+</html>
